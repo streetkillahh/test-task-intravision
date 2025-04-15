@@ -1,4 +1,4 @@
-﻿namespace TestTask.Application
+﻿namespace VendingMachine.Application
 {
     public class Class1
     {

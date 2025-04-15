@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestTask.Domain.Entities
+namespace VendingMachine.Domain.Entities
 {
     internal class testnamespace
     {

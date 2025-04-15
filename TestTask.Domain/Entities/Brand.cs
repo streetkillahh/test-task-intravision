@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace VendingMachine.Domain.Entities;
 
-namespace TestTask.Domain.Entities
+public class Brand
 {
-    internal class Brand
-    {
-    }
+    public int Id { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public ICollection<Product> Products { get; set; } = new List<Product>();
 }

@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace VendingMachine.Domain.Dto;
 
-namespace TestTask.Domain.Dto
+public class OrderItemDto
 {
-    internal class OrderItemDto
-    {
-    }
+    public int ProductId { get; set; }
+
+    public string ProductName { get; set; } = null!;
+
+    public string BrandName { get; set; } = null!;
+
+    public int Quantity { get; set; }
+
+    public decimal PricePerItem { get; set; }
+
+    public decimal Total => Quantity * PricePerItem;
 }

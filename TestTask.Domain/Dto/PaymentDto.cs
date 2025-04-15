@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace VendingMachine.Domain.Dto;
 
-namespace TestTask.Domain.Dto
+public class PaymentDto
 {
-    internal class PaymentDto
-    {
-    }
+    public int OrderId { get; set; }
+
+    public List<CoinDto> InsertedCoins { get; set; } = new();
 }

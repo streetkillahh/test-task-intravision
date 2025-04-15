@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using VendingMachine.Domain.Entities;
+using VendingMachine.Infrastructure;
+using VendingMachine.DAL.Repositories;
 
-namespace TestTask.Infrastructure.Repositories
+public class ProductRepository : BaseRepository<Product>, IProductRepository
 {
-    internal class ProductRepository
+    public ProductRepository(AppDbContext context) : base(context) { }
+
+    public IQueryable<Product> Query()
     {
+        return _dbSet.Include(p => p.Brand).AsQueryable();
     }
 }

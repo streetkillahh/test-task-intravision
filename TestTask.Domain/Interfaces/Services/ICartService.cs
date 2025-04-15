@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VendingMachine.Domain.Dto;
 
-namespace TestTask.Domain.Interfaces.Services
+namespace VendingMachine.Domain.Interfaces.Services;
+
+public interface ICartService
 {
-    internal interface ICartService
-    {
-    }
+    Task AddToCartAsync(OrderItemDto item);
+
+    Task<List<OrderItemDto>> GetCartAsync();
+
+    Task RemoveFromCartAsync(int productId);
+
+    Task ClearCartAsync();
 }

@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestTask.Domain.Interfaces
+namespace VendingMachine.Domain.Interfaces.Databases
 {
-    internal interface IAppDbContext
+    public interface IAppDbContext
     {
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

@@ -1,12 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using VendingMachine.Application.Common.Mappings;
+using VendingMachine.Domain.Entities;
 
-namespace TestTask.Application.Common.Mappings.Orders
+namespace VendingMachine.Domain.Dto;
+
+public class OrderItemDto : IMapWith<OrderItem>
 {
-    internal class OrderItemDto
+    public int ProductId { get; set; }
+
+    public string ProductName { get; set; } = null!;
+
+    public string BrandName { get; set; } = null!;
+
+    public int Quantity { get; set; }
+
+    public decimal PricePerItem { get; set; }
+
+    public decimal Total => Quantity * PricePerItem;
+
+    public void Mapping(Profile profile)
     {
+        profile.CreateMap<OrderItem, OrderItemDto>();
     }
 }

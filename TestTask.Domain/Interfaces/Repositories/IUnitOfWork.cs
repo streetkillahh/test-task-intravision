@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VendingMachine.Domain.Entities;
 
-namespace TestTask.Domain.Interfaces.Repositories
+namespace VendingMachine.Domain.Interfaces.Repositories;
+
+public interface IUnitOfWork : IDisposable
 {
-    internal interface IUnitOfWork
-    {
-    }
+    IBaseRepository<Product> Products { get; }
+
+    IBaseRepository<Order> Orders { get; }
+
+    IBaseRepository<Coin> Coins { get; }
+
+    Task<int> SaveChangesAsync();
 }

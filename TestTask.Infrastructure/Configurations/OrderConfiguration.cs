@@ -1,12 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using VendingMachine.Domain.Entities;
 
-namespace TestTask.Infrastructure.Configurations
+namespace VendingMachine.DAL.Configurations;
+
+public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
-    internal class OrderConfiguration
+    public void Configure(EntityTypeBuilder<Order> builder)
     {
+        builder.ToTable("Orders");
+
+        builder.HasKey(o => o.Id);
+
+        builder.Property(o => o.CreatedAt)
+            .HasDefaultValueSql("GETUTCDATE()");
+
+        builder.Property(o => o.TotalPrice)
+            .HasColumnType("decimal(10, 2)")
+            .IsRequired();
+
+        builder.HasMany(o => o.Items)
+            .WithOne(i => i.Order)
+            .HasForeignKey(i => i.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

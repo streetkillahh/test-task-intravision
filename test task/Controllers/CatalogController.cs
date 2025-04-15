@@ -1,12 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using VendingMachine.Domain.Dto;
+using VendingMachine.Domain.Interfaces.Services;
 
-namespace test_task.Controllers
+namespace VendingMachine.Api.Controllers
 {
-    public class ProductController : Controller
+    public class CatalogController : Controller
     {
-        public IActionResult Index()
+        private readonly IProductService _productService;
+
+        public CatalogController(IProductService productService)
         {
-            return View();
+            _productService = productService;
+        }
+
+        public async Task<IActionResult> Index(string? brand, decimal? minPrice, decimal? maxPrice)
+        {
+            var products = await _productService.FilterAsync(brand, minPrice, maxPrice);
+            ViewBag.Brand = brand;
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
+
+            return View(products);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            if (product is null)
+                return NotFound();
+
+            return View(product);
         }
     }
 }

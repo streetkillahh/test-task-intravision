@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VendingMachine.Domain.Dto;
 
-namespace TestTask.Domain.Interfaces.Services
+namespace VendingMachine.Domain.Interfaces.Services;
+
+public interface IPaymentService
 {
-    internal interface IPaymentService
-    {
-    }
+    Task<bool> TryProcessPaymentAsync(PaymentDto paymentDto);
+
+    Task<Dictionary<int, int>> CalculateChangeAsync(decimal totalInserted, decimal totalPrice);
 }

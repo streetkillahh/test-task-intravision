@@ -1,4 +1,4 @@
-using TestTask.Application.Common.Mappings;
+using VendingMachine.Application.Common.Mappings;
 using VendingMachine.DAL.DependencyInjection;
 using VendingMachine.Application.DependencyInjection;
 using System.Reflection;

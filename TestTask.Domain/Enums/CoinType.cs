@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestTask.Domain.Enums
+namespace VendingMachine.Domain.Enums
 {
-    internal class CoinType
+    public enum CoinType
     {
+        ОдинРубль = 1,
+        ДваРубля = 2,
+        ПятьРублей = 5,
+        ДесятьРублей = 10
     }
 }

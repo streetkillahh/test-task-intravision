@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace VendingMachine.Domain.Entities;
 
-namespace TestTask.Domain.Entities
+public class Order
 {
-    internal class Order
-    {
-    }
+    public int Id { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public decimal TotalPrice { get; set; }
+
+    public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 }

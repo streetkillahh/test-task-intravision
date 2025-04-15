@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using VendingMachine.Domain.Interfaces.Services;
+using VendingMachine.Application.Services;
 
-namespace TestTask.Application.DependencyInjection
+namespace VendingMachine.Application.DependencyInjection;
+
+public static class DependencyInjection
 {
-    internal class DependencyInjection
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddScoped<IProductService, ProductService>();
+        //services.AddScoped<IOrderService, OrderService>();
+        // позже: PaymentService, CartService
+
+        return services;
     }
 }

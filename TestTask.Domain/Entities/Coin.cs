@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VendingMachine.Domain.Enums;
 
-namespace TestTask.Domain.Entities
+namespace VendingMachine.Domain.Entities;
+
+public class Coin
 {
-    internal class Coin
-    {
-    }
+    public int Id { get; set; }
+
+    public CoinType Denomination { get; set; } // 1, 2, 5, 10
+
+    public int Quantity { get; set; }
 }

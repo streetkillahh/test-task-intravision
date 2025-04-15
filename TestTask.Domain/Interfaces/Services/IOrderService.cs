@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VendingMachine.Domain.Dto;
 
-namespace TestTask.Domain.Interfaces.Services
+namespace VendingMachine.Domain.Interfaces.Services;
+
+public interface IOrderService
 {
-    internal interface IOrderService
-    {
-    }
+    Task<int> CreateOrderAsync(List<OrderItemDto> items);
+
+    Task<OrderDto?> GetOrderByIdAsync(int id);
 }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
-namespace TestTask.Domain.Interfaces.Repositories
+public interface IBaseRepository<TEntity> where TEntity : class
 {
-    internal interface IBaseRepository
-    {
-    }
+    IQueryable<TEntity> GetAll();
+    Task<TEntity?> GetByIdAsync(int id);
+    Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
+    Task AddAsync(TEntity entity);
+    void Update(TEntity entity);
+    void Remove(TEntity entity);
+
+    Task SaveChangesAsync();
 }

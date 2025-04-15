@@ -8,9 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TestTask.Application\TestTask.Application.csproj" />
-    <ProjectReference Include="..\TestTask.Domain\TestTask.Domain.csproj" />
-    <ProjectReference Include="..\TestTask.Infrastructure\TestTask.Infrastructure.csproj" />
+	  <ProjectReference Include="..\TestTask.Application\TestTask.Application.csproj" />
+	  <ProjectReference Include="..\TestTask.Domain\TestTask.Domain.csproj" />
+	  <ProjectReference Include="..\TestTask.Infrastructure\TestTask.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

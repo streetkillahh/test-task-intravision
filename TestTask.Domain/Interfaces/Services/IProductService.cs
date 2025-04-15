@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VendingMachine.Domain.Dto;
 
-namespace TestTask.Domain.Interfaces.Services
+namespace VendingMachine.Domain.Interfaces.Services;
+
+public interface IProductService
 {
-    internal interface IProductService
-    {
-    }
+    Task<List<ProductDto>> GetAllAsync();
+
+    Task<List<ProductDto>> FilterAsync(string? brand, decimal? minPrice, decimal? maxPrice);
+
+    Task<ProductDto?> GetByIdAsync(int id);
 }

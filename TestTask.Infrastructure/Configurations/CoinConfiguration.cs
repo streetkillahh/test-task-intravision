@@ -1,12 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using VendingMachine.Domain.Entities;
 
-namespace TestTask.Infrastructure.Configurations
+namespace VendingMachine.DAL.Configurations;
+
+public class CoinConfiguration : IEntityTypeConfiguration<Coin>
 {
-    internal class CoinConfiguration
+    public void Configure(EntityTypeBuilder<Coin> builder)
     {
+        builder.ToTable("Coins");
+
+        builder.HasKey(c => c.Id);
+
+        builder.Property(c => c.Denomination)
+            .IsRequired();
+
+        builder.Property(c => c.Quantity)
+            .IsRequired();
     }
 }

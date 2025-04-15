@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using VendingMachine.Domain.Entities;
+using VendingMachine.Domain.Interfaces.Repositories;
 
-namespace TestTask.Domain.Interfaces.Repositories
+public interface IProductRepository : IBaseRepository<Product>
 {
-    internal interface IProductRepository
-    {
-    }
+    IQueryable<Product> Query(); // фильтрация без загрузки
 }
