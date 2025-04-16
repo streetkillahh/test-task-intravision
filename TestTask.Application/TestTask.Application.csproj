@@ -8,11 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="ClosedXML" Version="0.104.2" />
     <PackageReference Include="FluentValidation" Version="11.11.0" />
   </ItemGroup>
 
   <ItemGroup>
 	  <ProjectReference Include="..\TestTask.Domain\TestTask.Domain.csproj" />
+	  <ProjectReference Include="..\TestTask.Infrastructure\TestTask.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

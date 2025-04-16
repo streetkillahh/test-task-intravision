@@ -1,5 +1,4 @@
 ﻿using VendingMachine.Domain.Dto;
-
 namespace VendingMachine.Domain.Interfaces.Services;
 
 public interface IOrderService

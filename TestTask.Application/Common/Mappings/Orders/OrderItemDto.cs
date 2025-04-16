@@ -2,7 +2,7 @@
 using VendingMachine.Application.Common.Mappings;
 using VendingMachine.Domain.Entities;
 
-namespace VendingMachine.Domain.Dto;
+namespace VendingMachine.Application.Common.Mappings.Orders;
 
 public class OrderItemDto : IMapWith<OrderItem>
 {

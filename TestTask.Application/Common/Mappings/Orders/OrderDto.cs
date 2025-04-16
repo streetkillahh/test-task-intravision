@@ -2,7 +2,7 @@
 using VendingMachine.Application.Common.Mappings;
 using VendingMachine.Domain.Entities;
 
-namespace VendingMachine.Domain.Dto;
+namespace VendingMachine.Application.Common.Mappings.Orders;
 
 public class OrderDto : IMapWith<Order>
 {
@@ -16,7 +16,7 @@ public class OrderDto : IMapWith<Order>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<Order, OrderDto>()
+        profile.CreateMap<Order, VendingMachine.Domain.Dto.OrderDto>()
             .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
     }
 }

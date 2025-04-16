@@ -9,6 +9,7 @@ public interface IUnitOfWork : IDisposable
     IBaseRepository<Order> Orders { get; }
 
     IBaseRepository<Coin> Coins { get; }
+    IBaseRepository<Brand> Brands { get; }
 
     Task<int> SaveChangesAsync();
 }

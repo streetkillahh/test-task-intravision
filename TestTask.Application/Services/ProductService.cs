@@ -1,5 +1,4 @@
-﻿// ProductService.cs
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using VendingMachine.Domain.Dto;
 using VendingMachine.Domain.Entities;
@@ -10,18 +9,43 @@ namespace VendingMachine.Application.Services;
 
 public class ProductService : IProductService
 {
-    public Task<List<ProductDto>> FilterAsync(string? brand, decimal? minPrice, decimal? maxPrice)
+    private readonly IBaseRepository<Product> _productRepository;
+    private readonly IMapper _mapper;
+
+    public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
     {
-        throw new NotImplementedException();
+        _productRepository = unitOfWork.Products;
+        _mapper = mapper;
     }
 
-    public Task<List<ProductDto>> GetAllAsync()
+    public async Task<List<ProductDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var products = await _productRepository.GetAll()
+            .Include(p => p.Brand)
+            .ToListAsync();
+
+        return _mapper.Map<List<ProductDto>>(products);
     }
 
-    public Task<ProductDto?> GetByIdAsync(int id)
+    public async Task<List<ProductDto>> FilterAsync(string? brand, decimal? minPrice, decimal? maxPrice)
     {
-        throw new NotImplementedException();
+        var query = _productRepository.GetAll()
+            .Include(p => p.Brand)
+            .Where(p =>
+                (string.IsNullOrWhiteSpace(brand) || p.Brand.Name == brand) &&
+                (!minPrice.HasValue || p.Price >= minPrice.Value) &&
+                (!maxPrice.HasValue || p.Price <= maxPrice.Value));
+
+        var products = await query.ToListAsync();
+        return _mapper.Map<List<ProductDto>>(products);
+    }
+
+    public async Task<ProductDto?> GetByIdAsync(int id)
+    {
+        var product = await _productRepository.GetAll()
+            .Include(p => p.Brand)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        return product is null ? null : _mapper.Map<ProductDto>(product);
     }
 }
