@@ -1,14 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>test_task</RootNamespace>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\TestTask.Application\TestTask.Application.csproj" />
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="ClosedXML" Version="0.104.2" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <ProjectReference Include="..\TestTask.Domain\TestTask.Domain.csproj" />
 	  <ProjectReference Include="..\TestTask.Infrastructure\TestTask.Infrastructure.csproj" />
   </ItemGroup>
