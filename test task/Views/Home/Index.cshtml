@@ -28,40 +28,36 @@
         <div class="d-flex gap-2">
             <button class="btn btn-secondary">Импорт</button>
             <a id="selectedCountBtn" class="btn btn-success disabled" href="#">Выбрано: 0</a>
-
         </div>
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         @foreach (var drink in Model.Select((d, i) => new { Drink = d, Index = i }))
-{
-    var drinkId = $"drink-{drink.Index}";
-    <div class="col drink-item"
-         data-brand="@drink.Drink.Name.Split(' ')[2]"
-         data-price="@drink.Drink.Price">
-        <div class="card h-100 text-center">
-            <img src="@drink.Drink.ImageUrl" class="card-img-top p-3" alt="@drink.Drink.Name">
-            <div class="card-body">
-                <p class="card-text">@drink.Drink.Name</p>
-                <p class="fw-bold">@drink.Drink.Price руб.</p>
-                @if (drink.Drink.IsAvailable)
-                {
-                    <button 
-                        class="btn btn-warning select-btn"
-                        data-id="@drinkId"
-                        data-selected="false">
-                        Выбрать
-                    </button>
-                }
-                else
-                {
-                    <button class="btn btn-secondary" disabled>Закончился</button>
-                }
+        {
+            var drinkId = $"drink-{drink.Index}";
+            var brand = drink.Drink.Name.Split(' ').Last(); // или другой способ определения бренда
+            <div class="col drink-item" data-brand="@brand" data-price="@drink.Drink.Price">
+                <div class="card h-100 text-center">
+                    <img src="@drink.Drink.ImageUrl" class="card-img-top p-3" alt="@drink.Drink.Name">
+                    <div class="card-body">
+                        <p class="card-text">@drink.Drink.Name</p>
+                        <p class="fw-bold">@drink.Drink.Price руб.</p>
+                        @if (drink.Drink.IsAvailable)
+                        {
+                            <button class="btn btn-warning select-btn"
+                                    data-id="@drinkId"
+                                    data-selected="false">
+                                Выбрать
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary" disabled>Закончился</button>
+                        }
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-}
-
+        }
     </div>
 </div>
 
@@ -90,31 +86,6 @@
 
             priceLabel.textContent = `0 руб. - ${maxPrice} руб.`;
         }
-
-                function getSelectedDrinksData() {
-            const selected = [];
-            document.querySelectorAll('.select-btn[data-selected="true"]').forEach(btn => {
-                const card = btn.closest('.card');
-                const name = card.querySelector('.card-text').textContent;
-                const priceText = card.querySelector('.fw-bold').textContent;
-                const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
-                const imageUrl = card.querySelector('img').getAttribute('src');
-
-                selected.push({ name, price, imageUrl, isAvailable: true, isSelected: true });
-            });
-            return selected;
-        }
-
-        document.getElementById('selectedCountBtn').addEventListener('click', function (e) {
-            e.preventDefault();
-            const selectedDrinks = getSelectedDrinksData();
-
-            if (selectedDrinks.length > 0) {
-                localStorage.setItem('selectedDrinks', JSON.stringify(selectedDrinks));
-                window.location.href = '/Order/FromStorage';
-            }
-        });
-
 
         function updatePriceRangeLimits() {
             const selectedBrand = brandSelect.value;
@@ -146,7 +117,6 @@
 
         priceRange.addEventListener('input', updateVisibleDrinks);
 
-        // выбор товара
         document.querySelectorAll('.select-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.getAttribute('data-id');
@@ -168,13 +138,37 @@
 
                 const count = selectedItems.size;
                 counterBtn.textContent = `Выбрано: ${count}`;
-                counterBtn.disabled = count === 0;
+                counterBtn.classList.toggle('disabled', count === 0);
             });
         });
 
-        // начальная инициализация
+        // Сбор выбранных напитков
+        function getSelectedDrinksData() {
+            const selected = [];
+            document.querySelectorAll('.select-btn[data-selected="true"]').forEach(btn => {
+                const card = btn.closest('.card');
+                const name = card.querySelector('.card-text').textContent;
+                const priceText = card.querySelector('.fw-bold').textContent;
+                const price = parseFloat(priceText.replace(/[^\d.]/g, ''));
+                const imageUrl = card.querySelector('img').getAttribute('src');
+
+                selected.push({ name, price, imageUrl, isAvailable: true, isSelected: true });
+            });
+            return selected;
+        }
+
+        counterBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            const selectedDrinks = getSelectedDrinksData();
+
+            if (selectedDrinks.length > 0) {
+                localStorage.setItem('selectedDrinks', JSON.stringify(selectedDrinks));
+                window.location.href = '/Order/FromStorage';
+            }
+        });
+
+        // Инициализация
         updatePriceRangeLimits();
         updateVisibleDrinks();
     </script>
 }
-

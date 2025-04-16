@@ -10,7 +10,7 @@
     <script>
         const data = localStorage.getItem('selectedDrinks');
         if (!data) {
-            window.location.href = '/Order/Index'; // покажет "пустую корзину"
+            window.location.href = '/Order/Index'; // если пусто — редирект на пустую корзину
         } else {
             fetch('/Order/Receive', {
                 method: 'POST',

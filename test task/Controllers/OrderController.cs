@@ -14,6 +14,12 @@ namespace test_task.Controllers
 
             return View(selectedDrinks);
         }
+
+        public IActionResult FromStorage()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Receive([FromBody] List<DrinkViewModel> drinks)
         {
@@ -22,6 +28,5 @@ namespace test_task.Controllers
 
             return View("Index", drinks);
         }
-
     }
 }
