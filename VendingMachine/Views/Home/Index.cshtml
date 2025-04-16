@@ -1,0 +1,121 @@
+﻿@model IEnumerable<VendingMachine.Domain.Dto.ProductDto>
+
+@{
+    ViewData["Title"] = "Газированные напитки";
+}
+
+<div class="container my-4">
+    <h2>Газированные напитки</h2>
+
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <div class="d-flex gap-3 align-items-center">
+            <div>
+                <label for="brandSelect">Выберите бренд</label>
+                <select id="brandSelect" class="form-select">
+                    <option value="">Все</option>
+                    @foreach (var brand in ViewBag.Brands)
+                    {
+                        <option value="@brand">@brand</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <label for="priceRange" class="form-label">Стоимость</label>
+                <input type="range" class="form-range" min="0" max="110" id="priceRange">
+                <span>0 руб. - 110 руб.</span>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-secondary">Импорт</button>
+            <button id="selectedCountBtn" class="btn btn-success" disabled>Выбрано: 0</button>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach (var product in Model)
+        {
+            var productId = $"product-{product.Id}";
+            <div class="col product-item"
+                 data-brand="@product.BrandName"
+                 data-price="@product.Price">
+                <div class="card h-100 text-center">
+                    <img src="@product.ImageUrl" class="card-img-top p-3" alt="@product.Name">
+                    <div class="card-body">
+                        <p class="card-text">@product.Name</p>
+                        <p class="fw-bold">@product.Price руб.</p>
+                        @if (product.Quantity > 0)
+                        {
+                            <button class="btn btn-warning select-btn"
+                                    data-id="@productId"
+                                    data-selected="false">
+                                Выбрать
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary" disabled>Закончился</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const selectedItems = new Set();
+        const productItems = document.querySelectorAll('.product-item');
+        const brandSelect = document.getElementById('brandSelect');
+        const priceRange = document.getElementById('priceRange');
+        const priceLabel = priceRange.nextElementSibling;
+        const counterBtn = document.getElementById('selectedCountBtn');
+
+        function updateVisibleProducts() {
+            const selectedBrand = brandSelect.value;
+            const maxPrice = parseFloat(priceRange.value);
+
+            productItems.forEach(item => {
+                const brand = item.getAttribute('data-brand');
+                const price = parseFloat(item.getAttribute('data-price'));
+
+                const matchBrand = selectedBrand === "" || brand === selectedBrand;
+                const matchPrice = price <= maxPrice;
+
+                item.style.display = (matchBrand && matchPrice) ? "block" : "none";
+            });
+
+            priceLabel.textContent = `0 руб. - ${maxPrice} руб.`;
+        }
+
+        brandSelect.addEventListener('change', updateVisibleProducts);
+        priceRange.addEventListener('input', updateVisibleProducts);
+
+        document.querySelectorAll('.select-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-id');
+                const selected = btn.getAttribute('data-selected') === 'true';
+
+                if (selected) {
+                    selectedItems.delete(id);
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-warning');
+                    btn.textContent = 'Выбрать';
+                    btn.setAttribute('data-selected', 'false');
+                } else {
+                    selectedItems.add(id);
+                    btn.classList.remove('btn-warning');
+                    btn.classList.add('btn-success');
+                    btn.textContent = 'Выбрано';
+                    btn.setAttribute('data-selected', 'true');
+                }
+
+                const count = selectedItems.size;
+                counterBtn.textContent = `Выбрано: ${count}`;
+                counterBtn.disabled = count === 0;
+            });
+        });
+
+        updateVisibleProducts();
+    </script>
+}

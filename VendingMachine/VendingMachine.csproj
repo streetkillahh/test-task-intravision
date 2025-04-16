@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>test_task</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\images\cocacola.png" />
+    <Content Remove="wwwroot\images\drpepper.png" />
+    <Content Remove="wwwroot\images\fanta.png" />
+    <Content Remove="wwwroot\images\sprite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\VendingMachine.Application\VendingMachine.Application.csproj" />
+	  <ProjectReference Include="..\VendingMachine.Domain\VendingMachine.Domain.csproj" />
+	  <ProjectReference Include="..\VendingMachine.Infrastructure\VendingMachine.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="wwwroot\images\cocacola.png" />
+    <Resource Include="wwwroot\images\drpepper.png" />
+    <Resource Include="wwwroot\images\fanta.png" />
+    <Resource Include="wwwroot\images\sprite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
