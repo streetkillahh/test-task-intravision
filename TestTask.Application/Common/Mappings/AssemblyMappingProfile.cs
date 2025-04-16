@@ -1,11 +1,5 @@
-﻿using VendingMachine.Application.Common.Mappings;
-using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AutoMapper;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VendingMachine.Application.Common.Mappings
 {

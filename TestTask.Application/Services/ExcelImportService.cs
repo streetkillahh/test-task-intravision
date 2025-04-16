@@ -3,7 +3,6 @@ using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
 using VendingMachine.Domain.Entities;
 using VendingMachine.Domain.Interfaces.Repositories;
-using VendingMachine.Domain.Interfaces.Services;
 
 namespace VendingMachine.Application.Services;
 

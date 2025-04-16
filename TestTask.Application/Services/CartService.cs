@@ -9,7 +9,7 @@ public class CartService : ICartService
 
     public async Task AddToCartAsync(OrderItemDto item)
     {
-        await Task.Run(() => 
+        await Task.Run(() =>
         {
             var existing = _cart.FirstOrDefault(i => i.ProductId == item.ProductId);
 
@@ -18,7 +18,7 @@ public class CartService : ICartService
             else
                 _cart.Add(item);
         });
-        
+
     }
 
     public async Task ClearCartAsync()

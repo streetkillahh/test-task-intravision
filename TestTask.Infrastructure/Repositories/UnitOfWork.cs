@@ -1,6 +1,6 @@
 ﻿using VendingMachine.Domain.Entities;
-using VendingMachine.Infrastructure;
 using VendingMachine.Domain.Interfaces.Repositories;
+using VendingMachine.Infrastructure;
 
 namespace VendingMachine.DAL.Repositories;
 
@@ -12,18 +12,23 @@ public class UnitOfWork : IUnitOfWork
     public IBaseRepository<Order> Orders { get; }
     public IBaseRepository<Coin> Coins { get; }
 
+    public IBaseRepository<Brand> Brands{ get; }
+
+
     // db.Orders.Add
 
     public UnitOfWork(
         AppDbContext context,
         IBaseRepository<Product> productRepository,
         IBaseRepository<Order> orderRepository,
-        IBaseRepository<Coin>  coinRepository)
+        IBaseRepository<Coin> coinRepository,
+        IBaseRepository<Brand> brandRepository)
     {
         _context = context;
         Products = productRepository;
         Orders = orderRepository;
         Coins = coinRepository;
+        Brands = brandRepository;
     }
 
     public async Task<int> SaveChangesAsync()

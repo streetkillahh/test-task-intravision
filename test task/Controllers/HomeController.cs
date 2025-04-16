@@ -1,6 +1,7 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using test_task.Models;
+using test_task.ViewModel;
 
 namespace test_task.Controllers
 {
@@ -15,7 +16,15 @@ namespace test_task.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var drinks = new List<DrinkViewModel>
+            {
+                new DrinkViewModel { Name = "Напиток газированный Sprite", Price = 83, ImageUrl = "/images/sprite.png", IsAvailable = true, IsSelected = true },
+                new DrinkViewModel { Name = "Напиток газированный Fanta", Price = 98, ImageUrl = "/images/fanta.png", IsAvailable = true, IsSelected = false },
+                new DrinkViewModel { Name = "Напиток газированный Coca-Cola", Price = 105, ImageUrl = "/images/cocacola.png", IsAvailable = true, IsSelected = false },
+                new DrinkViewModel { Name = "Напиток газированный Dr. Pepper Zero", Price = 110, ImageUrl = "/images/drpepper.png", IsAvailable = false, IsSelected = false },
+            };
+
+            return View(drinks);
         }
 
         public IActionResult Privacy()

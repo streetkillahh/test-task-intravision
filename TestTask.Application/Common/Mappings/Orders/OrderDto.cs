@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using VendingMachine.Application.Common.Mappings;
 using VendingMachine.Domain.Entities;
 
 namespace VendingMachine.Application.Common.Mappings.Orders;

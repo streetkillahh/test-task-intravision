@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using VendingMachine.Application.Common.Mappings;
-using VendingMachine.Domain.Entities;
 using VendingMachine.Domain.Dto;
+using VendingMachine.Domain.Entities;
 
 namespace VendingMachine.Application.Mapping;
 

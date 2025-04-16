@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using VendingMachine.Infrastructure;
+﻿using VendingMachine.Infrastructure;
 
 public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
@@ -29,7 +27,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     public async Task AddAsync(TEntity entity)
     {
         await _dbContext.AddAsync(entity);
-        
+
     }
 
     public void Update(TEntity entity)

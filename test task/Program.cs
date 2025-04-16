@@ -1,7 +1,7 @@
-using VendingMachine.Application.Common.Mappings;
-using VendingMachine.DAL.DependencyInjection;
-using VendingMachine.Application.DependencyInjection;
 using System.Reflection;
+using VendingMachine.Application.Common.Mappings;
+using VendingMachine.Application.DependencyInjection;
+using VendingMachine.DAL.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

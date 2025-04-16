@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-public interface IBaseRepository<TEntity>
+﻿public interface IBaseRepository<TEntity>
 {
     IQueryable<TEntity> GetAll();
     Task<TEntity?> GetByIdAsync(int id);

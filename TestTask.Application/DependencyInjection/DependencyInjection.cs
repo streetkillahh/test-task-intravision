@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using VendingMachine.Domain.Interfaces.Services;
 using VendingMachine.Application.Services;
+using VendingMachine.Domain.Interfaces.Services;
 
 namespace VendingMachine.Application.DependencyInjection;
 

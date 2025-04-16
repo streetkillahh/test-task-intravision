@@ -1,8 +1,58 @@
-﻿@{
-    ViewData["Название"] = "Home Page";
+﻿@model IEnumerable<test_task.ViewModel.DrinkViewModel>
+
+@{
+    ViewData["Title"] = "Газированные напитки";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container my-4">
+    <h2>Газированные напитки</h2>
+
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <div class="d-flex gap-3 align-items-center">
+            <div>
+                <label for="brandSelect">Выберите бренд</label>
+                <select id="brandSelect" class="form-select">
+                    <option value="">Все</option>
+                    <option value="Coca-Cola">Coca-Cola</option>
+                    <option value="Fanta">Fanta</option>
+                    <option value="Sprite">Sprite</option>
+                    <option value="Dr Pepper">Dr Pepper</option>
+                </select>
+            </div>
+            <div>
+                <label for="priceRange" class="form-label">Стоимость</label>
+                <input type="range" class="form-range" min="0" max="110" id="priceRange">
+                <span>0 руб. - 110 руб.</span>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-secondary">Импорт</button>
+            <button class="btn btn-success">Выбрано: 1</button>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        @foreach (var drink in Model)
+        {
+            <div class="col">
+                <div class="card h-100 text-center">
+                    <img src="@drink.ImageUrl" class="card-img-top p-3" alt="@drink.Name">
+                    <div class="card-body">
+                        <p class="card-text">@drink.Name</p>
+                        <p class="fw-bold">@drink.Price руб.</p>
+                        @if (drink.IsAvailable)
+                        {
+                            <button class="btn @(drink.IsSelected ? "btn-success" : "btn-warning")">
+                                @(drink.IsSelected ? "Выбрано" : "Выбрать")
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-secondary" disabled>Закончился</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>

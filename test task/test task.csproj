@@ -8,9 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\cocacola.png" />
+    <Content Remove="wwwroot\images\drpepper.png" />
+    <Content Remove="wwwroot\images\fanta.png" />
+    <Content Remove="wwwroot\images\sprite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <ProjectReference Include="..\TestTask.Application\TestTask.Application.csproj" />
 	  <ProjectReference Include="..\TestTask.Domain\TestTask.Domain.csproj" />
 	  <ProjectReference Include="..\TestTask.Infrastructure\TestTask.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="wwwroot\images\cocacola.png" />
+    <Resource Include="wwwroot\images\drpepper.png" />
+    <Resource Include="wwwroot\images\fanta.png" />
+    <Resource Include="wwwroot\images\sprite.png" />
   </ItemGroup>
 
 </Project>

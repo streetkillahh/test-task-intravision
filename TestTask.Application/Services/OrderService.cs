@@ -1,10 +1,10 @@
 ﻿// OrderService.cs
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VendingMachine.Domain.Dto;
+using VendingMachine.Domain.Entities;
 using VendingMachine.Domain.Interfaces.Repositories;
 using VendingMachine.Domain.Interfaces.Services;
-using VendingMachine.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
 
 namespace VendingMachine.Application.Services;
 

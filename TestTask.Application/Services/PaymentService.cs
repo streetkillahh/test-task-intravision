@@ -1,7 +1,5 @@
-﻿using VendingMachine.Domain.Entities;
-using VendingMachine.Domain.Enums;
-using VendingMachine.Domain.Dto;
-using System.Linq;
+﻿using VendingMachine.Domain.Dto;
+using VendingMachine.Domain.Entities;
 using VendingMachine.Domain.Interfaces.Repositories;
 using VendingMachine.Domain.Interfaces.Services;
 

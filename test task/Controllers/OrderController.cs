@@ -1,6 +1,5 @@
 ﻿// OrderController.cs
 using Microsoft.AspNetCore.Mvc;
-using VendingMachine.Domain.Dto;
 using VendingMachine.Domain.Interfaces.Services;
 
 namespace VendingMachine.Api.Controllers;
