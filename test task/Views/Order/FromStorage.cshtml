@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Загрузка заказа...";
+}
+
+<div class="container my-5 text-center">
+    <p>Загружаем ваш заказ...</p>
+</div>
+
+@section Scripts {
+    <script>
+        const data = localStorage.getItem('selectedDrinks');
+        if (!data) {
+            window.location.href = '/Order/Index'; // покажет "пустую корзину"
+        } else {
+            fetch('/Order/Receive', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            }).then(res => res.text())
+              .then(html => document.write(html));
+        }
+    </script>
+}

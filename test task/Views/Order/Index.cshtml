@@ -1,0 +1,90 @@
+﻿@model List<test_task.ViewModel.DrinkViewModel>
+
+@{
+    ViewData["Title"] = "Оформление заказа";
+    var total = Model.Sum(x => x.Price);
+}
+
+<div class="container my-4">
+    <h2>Оформление заказа</h2>
+
+    <div class="mb-3">
+        <a href="/Home/Index" class="btn btn-secondary">Вернуться</a>
+    </div>
+
+    <div id="order-items">
+        @foreach (var item in Model.Select((drink, i) => new { drink, i }))
+        {
+            var id = $"item-{item.i}";
+            <div class="card mb-3 p-3 d-flex flex-row justify-content-between align-items-center order-item" data-id="@id" data-price="@item.drink.Price">
+                <div>
+                    <strong>@item.drink.Name</strong><br />
+                    <span class="text-muted">@item.drink.Price руб.</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-outline-secondary btn-sm minus-btn">-</button>
+                    <input type="number" class="form-control form-control-sm quantity-input" value="1" min="1" style="width: 60px;">
+                    <button class="btn btn-outline-secondary btn-sm plus-btn">+</button>
+                    <button class="btn btn-danger btn-sm delete-btn">Удалить</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between align-items-center">
+        <h4>Итоговая сумма: <span id="total">@total</span> руб.</h4>
+        <a id="payBtn" class="btn btn-primary disabled">Оплата</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('.order-item').forEach(item => {
+                const price = parseFloat(item.getAttribute('data-price'));
+                const quantity = parseInt(item.querySelector('.quantity-input').value) || 1;
+                total += price * quantity;
+            });
+            document.getElementById('total').textContent = total.toFixed(2);
+            document.getElementById('payBtn').classList.toggle('disabled', total === 0);
+        }
+
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('input', updateTotal);
+        });
+
+        document.querySelectorAll('.plus-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const input = e.target.parentElement.querySelector('.quantity-input');
+                input.value = parseInt(input.value) + 1;
+                updateTotal();
+            });
+        });
+
+        document.querySelectorAll('.minus-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const input = e.target.parentElement.querySelector('.quantity-input');
+                if (parseInt(input.value) > 1) {
+                    input.value = parseInt(input.value) - 1;
+                    updateTotal();
+                }
+            });
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const item = e.target.closest('.order-item');
+                item.remove();
+                updateTotal();
+
+                if (document.querySelectorAll('.order-item').length === 0) {
+                    document.getElementById('order-items').innerHTML = '<p>У вас нет ни одного товара, вернитесь на страницу каталога.</p>';
+                    document.getElementById('payBtn').classList.add('disabled');
+                }
+            });
+        });
+
+        updateTotal();
+    </script>
+}

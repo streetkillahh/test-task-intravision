@@ -1,33 +1,27 @@
-﻿// OrderController.cs
-using Microsoft.AspNetCore.Mvc;
-using VendingMachine.Domain.Interfaces.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using test_task.ViewModel;
 
-namespace VendingMachine.Api.Controllers;
-
-public class OrderController : Controller
+namespace test_task.Controllers
 {
-    private readonly ICartService _cartService;
-    private readonly IOrderService _orderService;
-
-    public OrderController(ICartService cartService, IOrderService orderService)
+    public class OrderController : Controller
     {
-        _cartService = cartService;
-        _orderService = orderService;
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> Create()
-    {
-        var cartItems = await _cartService.GetCartAsync();
-        if (!cartItems.Any())
+        public IActionResult Index(List<DrinkViewModel> selectedDrinks)
         {
-            TempData["Error"] = "Корзина пуста";
-            return RedirectToAction("Index", "Cart");
+            if (selectedDrinks == null || !selectedDrinks.Any())
+            {
+                return View("Empty");
+            }
+
+            return View(selectedDrinks);
+        }
+        [HttpPost]
+        public IActionResult Receive([FromBody] List<DrinkViewModel> drinks)
+        {
+            if (drinks == null || drinks.Count == 0)
+                return View("Empty");
+
+            return View("Index", drinks);
         }
 
-        var orderId = await _orderService.CreateOrderAsync(cartItems);
-        await _cartService.ClearCartAsync();
-
-        return RedirectToAction("Index", "Payment", new { orderId });
     }
 }
