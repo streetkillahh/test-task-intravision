@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Оплата";
+    var total = ViewBag.Total ?? 0;
+}
+
+<div class="container my-5">
+    <h2>Оплата</h2>
+
+    <p><strong>Сумма к оплате:</strong> <span id="total">@total</span> руб.</p>
+
+    <div class="row row-cols-2 row-cols-md-4 g-4 mb-3" id="coins">
+        @foreach (var coin in new[] { 1, 2, 5, 10 })
+        {
+            <div class="col">
+                <div class="card text-center p-2">
+                    <h4>@coin руб.</h4>
+                    <div class="d-flex justify-content-center gap-2 align-items-center mt-2">
+                        <button class="btn btn-sm btn-outline-secondary minus" data-value="@coin">-</button>
+                        <input type="number" class="form-control form-control-sm quantity" data-value="@coin" value="0" min="0" style="width: 60px;" />
+                        <button class="btn btn-sm btn-outline-secondary plus" data-value="@coin">+</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <p><strong>Внесено:</strong> <span id="inserted">0</span> руб.</p>
+
+    <div class="mb-3">
+        <a href="/Order/FromStorage" class="btn btn-secondary">Вернуться</a>
+        <button id="payBtn" class="btn btn-primary" disabled>Оплатить</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function updateInserted() {
+            let sum = 0;
+            document.querySelectorAll('.quantity').forEach(input => {
+                const value = parseInt(input.value) || 0;
+                const coin = parseInt(input.getAttribute('data-value'));
+                sum += coin * value;
+            });
+
+            const total = parseFloat(document.getElementById('total').textContent);
+            const inserted = document.getElementById('inserted');
+            const payBtn = document.getElementById('payBtn');
+
+            inserted.textContent = sum.toFixed(2);
+
+            if (sum >= total) {
+                inserted.classList.remove('text-danger');
+                inserted.classList.add('text-success');
+                payBtn.disabled = false;
+            } else {
+                inserted.classList.remove('text-success');
+                inserted.classList.add('text-danger');
+                payBtn.disabled = true;
+            }
+        }
+
+        document.querySelectorAll('.plus').forEach(btn => {
+            btn.addEventListener('click', e => {
+                const value = btn.getAttribute('data-value');
+                const input = document.querySelector(`.quantity[data-value='${value}']`);
+                input.value = parseInt(input.value) + 1;
+                updateInserted();
+            });
+        });
+
+        document.querySelectorAll('.minus').forEach(btn => {
+            btn.addEventListener('click', e => {
+                const value = btn.getAttribute('data-value');
+                const input = document.querySelector(`.quantity[data-value='${value}']`);
+                if (parseInt(input.value) > 0) {
+                    input.value = parseInt(input.value) - 1;
+                    updateInserted();
+                }
+            });
+        });
+
+        document.querySelectorAll('.quantity').forEach(input => {
+            input.addEventListener('input', updateInserted);
+        });
+
+        updateInserted();
+    </script>
+}

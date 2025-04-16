@@ -19,6 +19,14 @@ namespace test_task.Controllers
         {
             return View();
         }
+        // оплата
+        [HttpPost]
+        public IActionResult Payment([FromBody] decimal total)
+        {
+            ViewBag.Total = total;
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult Receive([FromBody] List<DrinkViewModel> drinks)
