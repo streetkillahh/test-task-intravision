@@ -1,16 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Загрузка заказа...";
+    ViewData["Title"] = "Загрузка оплаты...";
 }
 
 <div class="container my-5 text-center">
-    <p>Загружаем ваш заказ...</p>
+    <p>Загружаем данные о заказе...</p>
 </div>
 
 @section Scripts {
     <script>
         const data = localStorage.getItem('selectedDrinks');
         if (!data) {
-            window.location.href = '/Order/Index'; // если пусто — редирект на пустую корзину
+            window.location.href = '/Order/Index';
         } else {
             fetch('/Order/Receive', {
                 method: 'POST',
@@ -18,8 +18,10 @@
                     'Content-Type': 'application/json'
                 },
                 body: data
-            }).then(res => res.text())
-              .then(html => document.write(html));
+            }).then(() => {
+                localStorage.removeItem('selectedDrinks');
+                window.location.href = '/Order/Payment';
+            });
         }
     </script>
 }
