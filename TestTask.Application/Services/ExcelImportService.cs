@@ -31,6 +31,7 @@ public class ExcelImportService : IExcelImportService
             var productName = row.Cell(2).GetString();
             var price = row.Cell(3).GetDouble();
             var quantity = row.Cell(4).GetValue<int>();
+            var imageUrl = row.Cell(5).GetString();
 
             var brand = await _brandRepository.GetAll()
                 .FirstOrDefaultAsync(b => b.Name == brandName);
@@ -46,7 +47,8 @@ public class ExcelImportService : IExcelImportService
                 Name = productName,
                 Price = decimal.Parse(price.ToString()),
                 Quantity = quantity,
-                Brand = brand
+                Brand = brand,
+                ImageUrl = imageUrl
             };
 
             await _productRepository.AddAsync(product);

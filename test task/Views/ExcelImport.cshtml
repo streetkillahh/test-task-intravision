@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Импорт товаров из Excel";
+}
+
+<h2>Импорт товаров из Excel</h2>
+
+<form asp-controller="ExcelImport" asp-action="Upload" method="post" enctype="multipart/form-data">
+    <div>
+        <input type="file" name="file" accept=".xlsx,.xls" />
+    </div>
+    <button type="submit">Загрузить</button>
+</form>
+
+@if (TempData["Success"] != null)
+{
+    <div style="color:green;">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div style="color:red;">@TempData["Error"]</div>
+}
