@@ -1,12 +1,13 @@
 ﻿// ExcelImportService.cs
 using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
+using TestTask.Domain.Interfaces.Services;
 using VendingMachine.Domain.Entities;
 using VendingMachine.Domain.Interfaces.Repositories;
 
 namespace VendingMachine.Application.Services;
 
-public class ExcelImportService
+public class ExcelImportService : IExcelImportService
 {
     private readonly IBaseRepository<Product> _productRepository;
     private readonly IBaseRepository<Brand> _brandRepository;

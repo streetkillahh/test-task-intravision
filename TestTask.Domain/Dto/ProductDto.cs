@@ -11,6 +11,8 @@ public class ProductDto
     public int Quantity { get; set; }
 
     public int BrandId { get; set; }
+    public string ImageUrl { get; set; } = string.Empty;
+
 
     public string BrandName { get; set; } = null!;
 }
