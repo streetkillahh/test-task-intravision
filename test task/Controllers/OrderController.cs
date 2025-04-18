@@ -17,8 +17,16 @@ namespace test_task.Controllers
 
         public IActionResult FromStorage()
         {
-            return View(); // отобразит FromStorage.cshtml, JS передаст данные
+            return View();
         }
+        // оплата
+        [HttpPost]
+        public IActionResult Payment([FromBody] decimal total)
+        {
+            ViewBag.Total = total;
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult Receive([FromBody] List<DrinkViewModel> drinks)
@@ -26,17 +34,7 @@ namespace test_task.Controllers
             if (drinks == null || drinks.Count == 0)
                 return View("Empty");
 
-            TempData["Total"] = drinks.Sum(d => d.Price);
-            return RedirectToAction("Payment");
-        }
-
-        public IActionResult Payment()
-        {
-            if (TempData["Total"] == null)
-                return RedirectToAction("Index", "Home");
-
-            ViewBag.Total = TempData["Total"];
-            return View();
+            return View("Index", drinks);
         }
     }
 }
